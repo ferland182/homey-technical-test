@@ -1,28 +1,32 @@
 / Project Details Section
 h1.text-3xl.font-bold.text-gray-800.mb-4 = @project.name
 
-/ Status Change Form
-form data-controller="status-changes" data-action="change->status-changes#change" action=project_status_changes_path(@project) method="post"
-  p.text-gray-700.mb-4
-    | Status:
-    select name="status" data-status-changes-target="select" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out"
-      - StatusChange::statuses.keys.each do |status|
-        option value=status selected=(@project.status == status) = status.humanize
+- if current_user.present?
+  / Status Change Form
+  form data-controller="status-changes" data-action="change->status-changes#change" action=project_status_changes_path(@project) method="post"
+    p.text-gray-700.mb-4
+      | Status:
+      select name="status" data-status-changes-target="select" class="w-full border rounded-lg p-2 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out"
+        - StatusChange::statuses.keys.each do |status|
+          option value=status selected=(@project.status == status) = status.humanize
 
-= link_to "See status history", project_status_changes_path(@project), class: "text-lg text-blue-600 hover:text-blue-800 hover:underline transition duration-150 ease-in-out"
+  = link_to "See status history", project_status_changes_path(@project), class: "text-lg text-blue-600 hover:text-blue-800 hover:underline transition duration-150 ease-in-out"
 
-/ Comments Section
-h2.text-2xl.font-semibold.text-gray-800.mt-8 Comments
+  / Comments Section
+  h2.text-2xl.font-semibold.text-gray-800.mt-8 Comments
 
-/ Add Comment Form
-form data-controller="comments" data-action="submit->comments#submit" action=project_comments_path(@project) method="post" class="mt-8"
-  / List of Comments
-  ul#comments-list.space-y-4.pb-6 data-comments-target="list"
-    - @project.comments.each do |comment|
-      li.border.border-gray-300.p-4.rounded-lg.bg-white
-        p.text-gray-700 = comment.content
+  / Add Comment Form
+  form data-controller="comments" data-action="submit->comments#submit" action=project_comments_path(@project) method="post" class="mt-8"
+    / List of Comments
+    ul#comments-list.space-y-4.pb-6 data-comments-target="list"
+      - @project.comments.each do |comment|
+        li.border.border-gray-300.p-4.rounded-lg.bg-white
+          p.text-gray-700 = comment.content
 
-  textarea name="content" data-comments-target="content" class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out" placeholder="Add a comment..." rows="4"
+    textarea name="content" data-comments-target="content" class="w-full border rounded-lg p-3 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 outline-none transition duration-150 ease-in-out" placeholder="Add a comment..." rows="4"
 
-  button type="submit" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-150 ease-in-out"
-    | Submit
+    button type="submit" class="mt-4 bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-150 ease-in-out"
+      | Submit
+- else
+  div
+    | Please login to see project content

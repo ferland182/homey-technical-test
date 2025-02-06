@@ -9,6 +9,8 @@ class ProjectsController < ApplicationController
   end
 
   def create
+    return redirect_to root_path, alert: "Please login first!" unless current_user.present?
+
     @project = Project.new(project_params)
 
     respond_to do |format|

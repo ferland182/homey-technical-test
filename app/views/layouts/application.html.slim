@@ -19,6 +19,9 @@ html
 
   body.bg-gray-50
     main.container.mx-auto.mt-28.px-5.flex.max-w-3xl.flex-col
+      - if flash[:alert].present?
+        div.alert.bg-red-100.rounded.p-4.mb-4 = flash[:alert]
+
       div.flex.justify-between.pb-4
         div
           = link_to 'Projects', root_path, class: 'text-blue-600'
