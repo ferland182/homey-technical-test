@@ -1,0 +1,16 @@
+<p style="color: green"><%= notice %></p>
+
+<% content_for :title, "Status changes" %>
+
+<h1>Status changes</h1>
+
+<div id="status_changes">
+  <% @status_changes.each do |status_change| %>
+    <%= render status_change %>
+    <p>
+      <%= link_to "Show this status change", status_change %>
+    </p>
+  <% end %>
+</div>
+
+<%= link_to "New status change", new_status_change_path %>
