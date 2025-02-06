@@ -1,5 +1,9 @@
 # README
 
+## Technical test
+
+This is a repo for a technical test
+
 ## Questions and answers that would be asked to my colleagues
 
 ### 1. Should users be authenticated?
