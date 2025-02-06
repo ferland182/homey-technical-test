@@ -59,3 +59,6 @@ end
 gem "devise", "~> 4.9"
 
 gem "slim", "~> 5.2"
+
+gem "tailwindcss-ruby", "~> 4.0"
+gem "tailwindcss-rails", "~> 4.0"
