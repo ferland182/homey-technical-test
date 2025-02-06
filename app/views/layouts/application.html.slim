@@ -1,0 +1,34 @@
+doctype html
+html
+  head
+    title = content_for?(:title) ? content_for(:title) : "Homey Technical Test"
+    meta name="viewport" content="width=device-width,initial-scale=1"
+    meta name="apple-mobile-web-app-capable" content="yes"
+    = csrf_meta_tags
+    = csp_meta_tag
+
+    = yield :head
+
+    link rel="manifest" href="/manifest.json"
+    link rel="icon" href="/icon.png" type="image/png"
+    link rel="icon" href="/icon.svg" type="image/svg+xml"
+    link rel="apple-touch-icon" href="/icon.png"
+    = stylesheet_link_tag "tailwind", "data-turbo-track": "reload"
+    = stylesheet_link_tag "application", "data-turbo-track": "reload"
+    = javascript_importmap_tags
+
+  body
+    main.container.mx-auto.mt-28.px-5.flex.max-w-3xl.flex-col
+      div.flex.justify-between.pb-4
+        div
+          = link_to 'Projects', root_path, class: 'text-blue-600'
+        div.flex.gap-x-4
+          - if current_user.present?
+            p = current_user.email
+            = button_to "Logout", destroy_user_session_path, method: :delete, class: 'text-blue-600'
+
+          - else
+            = link_to "Register", new_user_registration_path, class: 'text-blue-600'
+            = link_to "Login", new_user_session_path, class: 'text-blue-600'
+
+      = yield
