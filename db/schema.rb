@@ -11,10 +11,13 @@
 # It's strongly recommended that you check this file into your version control system.
 
 ActiveRecord::Schema[7.2].define(version: 2025_02_06_155735) do
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "comments", force: :cascade do |t|
     t.text "content"
-    t.integer "project_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "project_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_comments_on_project_id"
@@ -29,8 +32,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_02_06_155735) do
 
   create_table "status_changes", force: :cascade do |t|
     t.integer "status"
-    t.integer "project_id", null: false
-    t.integer "user_id", null: false
+    t.bigint "project_id", null: false
+    t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["project_id"], name: "index_status_changes_on_project_id"
